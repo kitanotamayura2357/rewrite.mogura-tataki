@@ -9,8 +9,8 @@
 
 <script>
 export default{
-    name: 'Counter',
-    props: ['label', 'value']
+  name: 'Counter',
+  props: ['label', 'value']
 };
 </script>
 
