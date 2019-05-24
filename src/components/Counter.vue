@@ -15,6 +15,9 @@ export default{
 </script>
 
 
+
+
+
 <style>
 .counter {
   border: 1px solid #000;

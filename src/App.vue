@@ -6,6 +6,7 @@
     <button
       class="start-game"
       v-on:click="startGame"
+      v-on:whack="handleMoleWhack"
     >
       Start Game
     </button>
@@ -14,10 +15,10 @@
       <Counter label="High-Score:" v-bind:value="highscore"></Counter>
       <Counter label="Timer" v-bind:value="timer"></Counter>
     </div>
-    <!-- <Moles></Moles> -->
     <Moles
     v-bind:moleData="moles"
     v-bind:gameActive="gameActive"
+    v-on:whack="handleMoleWhack"
     />
   </div>
 </template>
@@ -71,6 +72,9 @@ export default {
     stopTimer: function() {
       clearInterval(this.timerId);
     },
+    handleMoleWhack: function(moleId) {
+      console.log('moleId  = ', moleId)
+    }
   },
 };
 </script>
@@ -98,10 +102,6 @@ export default {
   display: flex;
   justify-content: space-evenly;
 }
-
-
-
-
 
 .mole-container.active .mole {
   /* display: block; */
