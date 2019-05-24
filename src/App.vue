@@ -46,13 +46,13 @@ export default {
   methods: {
     resetState: function() {
       this.score = 0;
-      this.timer = 20;
+      this.timer = 2;
       this.moles = [false,false,false,false];
     },
     startGame: function() {
-      // if (this.gameActive === true) {
-      //   return; 
-      // }
+      if (this.gameActive === true) {
+        return; 
+      }
       this.resetState();
       this.gameActive = true;
       this.startTimer();
