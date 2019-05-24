@@ -26,6 +26,7 @@
 <script>
 import Counter from './components/Counter';
 import Moles from './components/Moles';
+import { setInterval, clearInterval, setTimeout } from 'timers';
 
 export default {
   name: 'App',
@@ -53,10 +54,12 @@ export default {
       this.resetState();
       this.gameActive = true;
       this.startTimer();
+      this.startMoles();
     },
     endGame: function() {
       this.gameActive = false;
       this.stopTimer();
+      this.stopMoles();
     },
     startTimer: function() {
       this.timerId = setInterval(() => {
@@ -72,9 +75,37 @@ export default {
     stopTimer: function() {
       clearInterval(this.timerId);
     },
+    startMoles: function() {
+      this.moleInterval = setInterval(this.activateRandomMole.bind(this), 500);
+    },
+    stopMoles: function() {
+      clearInterval(this.moleInterval);
+    },
+    activateRandomMole: function(){
+      const randomMoleIndex = Math.floor(Math.random() * this.moles.length);
+      if (!this.moles[randomMoleIndex]) {
+        this.activateMole(randomMoleIndex);
+      }
+    },
+    toggleMole: function(moleId, shouldShow) {
+      const moles = this.moles.slice();
+      moles[moleId] = shouldShow;
+      this.moles = moles;
+    },
+    activateMole: function(moleId) {
+      this.toggleMole(moleId, true);
+      setTimeout(() => this.deactivateMole(moleId), 1500); 
+    },
+    deactivateMole: function(moleId) {
+      this.toggleMole(moleId, false);
+    },
+
+
     handleMoleWhack: function(moleId) {
-      console.log('moleId  = ', moleId)
-    }
+      // console.log('moleId  = ', moleId)
+      this.score = this.score + 1;
+      this.deactivateMole(moleId);
+    },
   },
 };
 </script>
